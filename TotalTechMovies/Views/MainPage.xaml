@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TotalTechMovies.MainPage">
+    <ScrollView>
+        
+        <StackLayout>
+            <Frame BackgroundColor="#5FA3D2" CornerRadius="25" Margin="0,2,0,-40">
+                <StackLayout>
+
+                    <Label Text="Hola, Que es lo que le gustaria ver?" HorizontalTextAlignment="Center" TextColor="White" FontSize="32"/>
+                    <Frame Background="#90BFE0" CornerRadius="25" Margin="60,10,60,30" HeightRequest="18">
+                        
+                        <SearchBar x:Name="search" 
+                   Placeholder="Busca tu Pelicula" 
+                   TextChanged="search_TextChanged"
+                   TextColor="White"
+                   PlaceholderColor="White"
+                   CancelButtonColor="White"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"
+                   FontSize="15"
+                                  
+                   SearchCommand="{Binding SearchCommand}" 
+                   SearchCommandParameter="{Binding Text, Source={x:Reference search}}">
+                        </SearchBar>
+                    </Frame>
+                    
+                   
+                </StackLayout>
+            </Frame>
+            
+            <Frame CornerRadius="20" BackgroundColor="#2D2B46" Padding="0,0,0,0">
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <Label Padding="20,20,0,0" Text="RECOMENDADO PARA TI" TextColor="White"></Label>
+                    <Grid Margin="1,-10,1,0" HorizontalOptions="FillAndExpand">
+
+                        <CollectionView x:Name="ViewTopRate"
+                        SelectionMode="Single"
+                        SelectionChanged="ViewTopRate_SelectionChanged"
+                        ItemsSource="{Binding Results}"
+                        ItemsLayout="HorizontalList"
+                        HeightRequest="240">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    
+                                    <StackLayout HorizontalOptions="EndAndExpand">
+                                        
+                                        <Frame CornerRadius="5" Margin="5" Padding="5"  HorizontalOptions="FillAndExpand" BackgroundColor="#2D2B46">
+                                            <StackLayout Margin="5" HorizontalOptions="FillAndExpand" >
+                                                <StackLayout Orientation="Vertical"  HorizontalOptions="FillAndExpand">
+                                                    <Frame CornerRadius="10" HorizontalOptions="FillAndExpand" Padding="-20">
+                                                        <Image  Aspect="AspectFit" Source="{Binding poster_path, StringFormat='https://image.tmdb.org/t/p/w500{0}'}" WidthRequest="180" HeightRequest="220"></Image>
+                                                    </Frame>
+                                                    
+
+                                                    <StackLayout Spacing="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                                        <Label FontSize="12" Text="{Binding title}" TextColor="White" WidthRequest="100"/>
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </Frame>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                            
+                            <CollectionView.EmptyView>
+                                <StackLayout
+                            HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="CenterAndExpand">
+                                    <Label
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                TextColor="White"
+                                        
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center"
+                                Text="No se encontraron resultados" />
+                                </StackLayout>
+                            </CollectionView.EmptyView>
+                            
+                        </CollectionView>
+                    </Grid>
+
+                    <Label Padding="20,10,0,0" Text="TOP" TextColor="White"></Label>
+                    <Grid Margin="1,-10,1,0">
+                        <CollectionView x:Name="ViewUpComing"
+                             SelectionMode="Single"
+                                        SelectionChanged="ViewUpComing_SelectionChanged"
+            ItemsSource="{Binding ResultsUpComing}"
+            ItemsLayout="HorizontalList"
+             HeightRequest="240">
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout  HorizontalOptions="EndAndExpand">
+                                        <Frame CornerRadius="5" Margin="5" Padding="5"  HorizontalOptions="FillAndExpand" BackgroundColor="#2D2B46">
+                                            <StackLayout Margin="5" HorizontalOptions="FillAndExpand"  >
+                                                <StackLayout Orientation="Vertical"  HorizontalOptions="FillAndExpand">
+
+                                                    <Frame CornerRadius="10" HorizontalOptions="FillAndExpand" Padding="-20">
+                                                        <Image  Aspect="AspectFit" Source="{Binding poster_path, StringFormat='https://image.tmdb.org/t/p/w500{0}'}" WidthRequest="180" HeightRequest="220"></Image>
+                                                    </Frame>
+
+                                                    <StackLayout Spacing="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                                        <Label FontSize="12" Text="{Binding title}" TextColor="White" WidthRequest="100"/>
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </Frame>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                            
+                            <CollectionView.EmptyView>
+                                <StackLayout
+                            HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="CenterAndExpand">
+                                    <Label
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                TextColor="White"
+                                        
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center"
+                                Text="No se encontraron resultados" />
+                                </StackLayout>
+                            </CollectionView.EmptyView>
+                        </CollectionView>
+                    </Grid>
+
+                    <Label Padding="20,10,0,0" Text="ESTRENOS" TextColor="White"></Label>
+                    <Grid Margin="1,-10,1,10">
+                        <CollectionView x:Name="ViewPopular"
+                SelectionMode="Single"
+                                        SelectionChanged="ViewPopular_SelectionChanged"
+            ItemsSource="{Binding ResultsPopular}"
+            ItemsLayout="HorizontalList"
+            HeightRequest="240">
+
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackLayout Spacing="8" HorizontalOptions="EndAndExpand">
+                                        <Frame CornerRadius="5" Margin="5" Padding="5"  HorizontalOptions="FillAndExpand" BackgroundColor="#2D2B46">
+                                            <StackLayout Margin="5" HorizontalOptions="FillAndExpand" Spacing="8" >
+                                                <StackLayout Orientation="Vertical"  HorizontalOptions="FillAndExpand">
+
+                                                    <Frame CornerRadius="10" HorizontalOptions="FillAndExpand" Padding="-20">
+                                                        <Image  Aspect="AspectFit" Source="{Binding poster_path, StringFormat='https://image.tmdb.org/t/p/w500{0}'}" WidthRequest="180" HeightRequest="220"></Image>
+                                                    </Frame>
+                                                    
+                                                    <StackLayout Spacing="2" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                                                        <Label FontSize="12" Text="{Binding title}" TextColor="White" WidthRequest="100"/>
+                                                    </StackLayout>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </Frame>
+                                    </StackLayout>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+
+                            <CollectionView.EmptyView>
+                                <StackLayout
+                            HorizontalOptions="CenterAndExpand"
+                             VerticalOptions="CenterAndExpand">
+                                    <Label
+                                FontAttributes="Bold"
+                                FontSize="18"
+                                TextColor="White"
+                                        
+                                HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center"
+                                Text="No se encontraron resultados" />
+                                </StackLayout>
+                            </CollectionView.EmptyView>
+
+                        </CollectionView>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+            
+           
+
+    </StackLayout>
+    </ScrollView>
+</ContentPage>
